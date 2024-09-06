@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO LIST</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h2>TO-DO LIST</h2>
+            <input type="text" placeholder="Write your task" id="ipb">
+            <ul id="list"></ul>
+        </div>
+    </div>
+    <script>
+        let ipbx = document.querySelector('#ipb');
+        let list = document.querySelector('#list');
+        ipbx.addEventListener("keyup", function(e){
+            if(e.key == "Enter"){
+                addItem(this.value);
+                this.value = "";
+            }
+        });
+
+        let addItem = (task) => {
+            let listItem = document.createElement("li");
+            listItem.innerHTML = `${task}<i class="delete"></i>`;
+            listItem.addEventListener("click", function(){
+                this.classList.toggle('done');
+            });
+            listItem.querySelector("i.delete").addEventListener("click", function(e){
+                e.stopPropagation(); // Prevent triggering the parent click event
+                listItem.remove();
+            });
+            list.appendChild(listItem);
+        }
+    </script>
+</body>
+</html>
